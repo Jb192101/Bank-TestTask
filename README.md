@@ -30,4 +30,4 @@ docker run -d --name bank-postgres \
   -p 5432:5432 postgres:15
 
 # Сборка и запуск приложения
-./gradlew bootRun
+mvn spring-book:run
