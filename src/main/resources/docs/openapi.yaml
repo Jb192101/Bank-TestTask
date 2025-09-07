@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: Bank Card Management System API
+  version: 1.0.0
+  description: REST API для системы управления банковскими картами
+  contact:
+    name: Bank API Support
+    email: support@bank.com
+  license:
+    name: Apache 2.0
+    url: http://springdoc.org
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+  - url: http://api.bank.com
+    description: Production server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Authentication
+    description: API для аутентификации и регистрации
+  - name: Admin
+    description: API для административных операций
+  - name: User
+    description: API для пользовательских операций
+
+paths:
+  /api/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Вход в систему
+      description: Аутентификация пользователя и получение JWT токена
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: Успешная аутентификация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Неверные учетные данные
